@@ -39,9 +39,9 @@ videos.get('/all/videos', (req, res) => {
 
     console.log('get all videos... route')
     Video.findAll({
-        attributes: ['source']
+        attributes: ['source','title','id']
       }).then(videos =>{
-          res.status(200).send({videos:videos})
+          res.status(200).send({videos})
       }).catch(err =>{ 
           res.status(400).send({error: err})
       })
@@ -57,14 +57,14 @@ videos.get('/myVideos/:userId', (req, res) => {
             where: {
                 uploader_id:uploader_id
             },
-            attributes: ['source','title']
+            attributes: ['source','title','id']
     }).then(video => {
         res.status(200).send({video});
     }).catch(error => {
         res.status(400).send({error})
     })
 
-    //manipulation 
+    
 
 })
 
