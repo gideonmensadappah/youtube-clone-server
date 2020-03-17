@@ -1,50 +1,34 @@
-const { Sequelize } = require('sequelize');
+const { Sequelize } = require("sequelize");
 const db = {};
 
-  // Connecting to a database
- const sequelize = new Sequelize('yourtube','root', '', {
-    host: 'localhost',
-    dialect:'mysql',
-    operatorsAliases: false,
-
-    pool: {
-          // Connection Pool
-    max: 5,
-    min: 0,
-    acquire: 30000,
-    idle: 10000
-  
-    }
-
-});
-
-
-/*
-Database כשאני מסיים היום לא לשכוח להחזיר את זה 
- const sequelize = new Sequelize(process.env.DATABASE_NAME, process.env.DATABASE_USER, process.env.DATABASE_PASSWORD, {
+// Connecting to a database
+const sequelize = new Sequelize(
+  process.env.DATABASE_NAME,
+  process.env.DATABASE_USER,
+  process.env.DATABASE_PASSWORD,
+  {
     host: process.env.DATABASE_HOST,
-    dialect:'mysql',
+    dialect: "mysql",
     operatorsAliases: false,
 
     pool: {
-          // Connection Pool
-    max: 5,
-    min: 0,
-    acquire: 30000,
-    idle: 10000
-  
+      // Connection Pool
+      max: 5,
+      min: 0,
+      acquire: 30000,
+      idle: 10000
     }
+  }
+);
 
-});
+sequelize
+  .authenticate()
+  .then(() => {
+    console.log("new sucsess");
+  })
+  .catch(err => console.log(err));
 
-*/
-
-sequelize.authenticate().then(()=> {
-      console.log('new sucsess')
-}).catch(err => console.log(err))
-
-db.sequelize = sequelize
-db.sequelize = sequelize
+db.sequelize = sequelize;
+db.sequelize = sequelize;
 
 module.exports = db;
-
