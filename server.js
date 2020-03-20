@@ -10,10 +10,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 const Users = require("./routes/Users");
 const Videos = require("./routes/Videos");
-
+const Comments = require("./routes/comments");
 app.use("/users", Users);
 app.use("/videos", Videos);
-
+app.use("/comments", Comments);
 app.get("/", (req, res) => {
   res.send("start");
 });
