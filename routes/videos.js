@@ -3,9 +3,30 @@ const cors = require("cors");
 const videos = express.Router();
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-
+const queryString = require("querystring");
 const Video = require("../modules/Video");
 videos.use(cors());
+
+videos.get("/:search?", (req, res) => {
+  const query = queryString.encode(req.query);
+  // res.send(query);
+  const q = queryString.parse(query);
+  // console.log(q.query);
+
+  Video.findAll({
+    where: { title: q.query },
+    attributes: ["title", "id", "source"],
+    $or: [
+      {
+        title: {
+          $like: q.query
+        }
+      }
+    ]
+  })
+    .then(result => res.send(result))
+    .catch(err => res.send(err));
+});
 
 // Add video to the dataBase
 videos.post("/add/video", (req, res) => {
