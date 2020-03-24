@@ -18,13 +18,12 @@ comments.post("/addComment", (req, res) => {
     comment: commentData.comment,
     comment_dt: dt
   })
-    .then(added => res.send("sucess"))
+    .then(result => res.send(result))
     .catch(err => res.send(err));
 });
 
 // Select post/comment by ID
 comments.get("/getComments", (req, res) => {
-  const video_id = req.params.activeVidId;
   Comment.findAll({
     attributes: ["id", "comment", "video_id"]
   })
