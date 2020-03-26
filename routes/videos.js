@@ -7,22 +7,11 @@ const queryString = require("querystring");
 const Video = require("../modules/Video");
 videos.use(cors());
 
-videos.get("/search/:query", (req, res) => {
+videos.get("/search/results", (req, res) => {
   // console.log(q.query);
-  let query = req.params.query;
-  query.toLowerCase();
-  let arr = query.split("=");
 
   Video.findAll({
-    where: { title: arr[1] },
-    attributes: ["title", "id", "source"],
-    $or: [
-      {
-        title: {
-          $like: arr[1]
-        }
-      }
-    ]
+    attributes: ["title", "id", "source"]
   })
     .then(result => res.send(result))
     .catch(err => res.send(err));
